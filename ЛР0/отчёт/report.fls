@@ -1,6 +1,6 @@
-PWD d:\os\OS\ЛР0
+PWD d:\os\OS\ЛР0\отчёт
 INPUT C:\Users\Miroslav\AppData\Local\MiKTeX\miktex\data\le\xetex\xelatex.fmt
-INPUT d:\os\OS\ЛР0\report.tex
+INPUT d:\os\OS\ЛР0\отчёт\report.tex
 OUTPUT report.log
 INPUT D:\Tex\tex\latex\base\article.cls
 INPUT D:\Tex\tex\latex\base\article.cls
