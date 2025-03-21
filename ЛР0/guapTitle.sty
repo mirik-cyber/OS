@@ -1,0 +1,28 @@
+\ProvidesPackage{guapTitle}
+
+\newcommand{\guapTitle}[9]{
+\begin{titlepage}
+    \begin{center} ГУАП\\ \vspace{1cm} КАФЕДРА № #1 \\ \vspace{3cm} 
+    \end{center}
+   ОТЧЕТ\\  ЗАЩИЩЕН С ОЦЕНКОЙ
+   \vspace{0.2cm}\\
+   ПРЕПОДАВАТЕЛЬ \vspace{0.5cm}\\ 
+   \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}Xp{0.2cm}>{\centering\arraybackslash}Xp{0.2cm}>{\centering\arraybackslash}X}  
+   #2 &  & & & #3 \\  \cline{1-1}  \cline{3-3} \cline{5-5}
+       \small{должность, уч. степень, звание} & &
+   \small{подпись, дата} & &\small{инициалы, фамилия}   \end{tabularx}
+   \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X}
+    \vspace{3cm}% Пустое пространство перед заголовком
+    \Large{Практическая работа} \\
+    \parbox[c][4cm][c]{\textwidth}{\centering \Large{#4}} \\
+    по курсу: #5\\
+\end{tabularx} \vfill 
+\noindent РАБОТУ ВЫПОЛНИЛ \vspace{0.5cm}\\
+   \begin{tabularx}{\textwidth}{p{3.5cm}>{\centering\arraybackslash} p{2.5cm} p{0.2cm}>{\centering\arraybackslash}Xp{0.2cm}>{\centering\arraybackslash}X}
+     СТУДЕНТ гр. № & #6 & & #7 & & #8 \\  \cline{2-2}  \cline{4-4} \cline{6-6}
+      &  & &
+   \small{подпись, дата} & &\small{инициалы, фамилия}   \end{tabularx}
+   \vspace{2cm} 
+   \begin{center} Санкт-Петербург 20#9 \end{center} 
+\end{titlepage}
+}
