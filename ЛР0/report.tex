@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{goststyle} % Подключение созданного стиля
+\usepackage{guapTitle}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    escapeinside=``
+}
+
+\lstset{style=mystyle}
+
+
+\begin{document}
+\guapTitle{43}{старший преподаватель}{М. Д. Поляк}{Знакомство с системой контроля версий git и сервисом GitHub}{Операционные системы}{М211}{}{М. М. Приходько}{25}
+\section*{Текст задания}
+\begin{itemize}
+    \item Создать файл \texttt{goals.md} с заголовками \texttt{Мой опыт} и \texttt{Мои цели}, добавить абзац об опыте и списки целей и задач.
+    \item Создать файл \texttt{info.md} с ФИО, названием ОС и текущими датой и временем.
+    \item Использовать Git из командной строки: команды \texttt{git clone}, \texttt{add}, \texttt{commit}, \texttt{push}.
+    \item Подготовить отчет в \LaTeX{} и сохранить его как \texttt{report.pdf} вместе с исходным \texttt{.tex}-файлом в репозиторий.
+\end{itemize}
+
+\section*{Файл goals.md}
+\begin{lstlisting}
+### Мой опыт                                   
+ Разработал консольное приложение на языке c++ для вычисления трансцендентных уравнений численными методами:
+1. Метод биссекций.
+2. Метод Ньютона.
+3. Метод хорд.
+Также разработал приложение с графическим интерфейсом на языке c++ с помощью платформы QT для автопроката.
+
+[OS репозиторий](https://github.com/mirik-cyber/OS)
+
+### Мои цели
+- Сдать все лабораторные до мая
+- Получить по предмету 5 автоматом
+- Удалить Linux
+### Шаги для достижения
+* Делать лабораторные работы
+* Уделять время изучению материала
+* Проявить терпение...
+\end{lstlisting}
+\section*{Файл info.md}
+\begin{lstlisting}
+    Приходько Мирослав Михайлович
+    Windows
+    21.03.2025 20:02
+\end{lstlisting}
+\section*{Вывод}
+В ходе выполнения вводной лабораторной работы я познакомился с системой контроля версий Git и сервисом GitHub. Были изучены базовые команды командной строки для работы с репозиторием: клонирование, добавление и фиксация изменений, отправка их на удалённый сервер. Также был освоен синтаксис языка разметки Markdown для оформления текстовых файлов.
+\end{document}
