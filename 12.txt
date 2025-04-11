@@ -1,0 +1,143 @@
+mir@mir-VirtualBox:~/lab2/os-task2-mirik-cyber/test$ ./runTests
+[==========] Running 5 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 5 tests from lab2_tests
+[ RUN      ] lab2_tests.tasknumber
+TASKID is 5
+[       OK ] lab2_tests.tasknumber (0 ms)
+[ RUN      ] lab2_tests.unsynchronizedthreads
+Unsynchronized threads are cdfg
+[       OK ] lab2_tests.unsynchronizedthreads (0 ms)
+[ RUN      ] lab2_tests.sequentialthreads
+Sequential threads are ikm
+[       OK ] lab2_tests.sequentialthreads (0 ms)
+[ RUN      ] lab2_tests.threadsync
+tests.cpp:329: Failure
+Expected: (outs.str().length()) >= (solution_len*3), actual: 43 vs 54
+Output is too short.
+Output for graph 5 is: abcdefghinagncebkbdhgcfnbcnafmgehdfhaeddddd
+Intervals are:
+ab
+cdef
+ghin
+agn
+ceb
+kb
+dhgcfnbcnafmgehdfhaeddddd
+tests.cpp:342: Failure
+Expected equality of these values:
+  results.size()
+    Which is: 7
+  solution.size()
+    Which is: 6
+Invalid number of intervals. Expected 6 intervals, but found 7. Did you forget to run some threads? Otherwise maybe your threads are running for too long (or too short)?
+tests.cpp:356: Failure
+Value of: false
+  Actual: false
+Expected: true
+Unexpected character 'b' was found while looking for any of 'ac'.
+[  FAILED  ] lab2_tests.threadsync (543 ms)
+[ RUN      ] lab2_tests.concurrency
+Completed 0 out of 100 runs.
+Completed 20 out of 100 runs.
+Completed 40 out of 100 runs.
+Completed 60 out of 100 runs.
+Completed 80 out of 100 runs.
+tests.cpp:427: Failure
+Value of: sequential_failed
+  Actual: true
+Expected: false
+Sequential execution test(s) failed!
+tests.cpp:428: Failure
+Value of: unsynchronized_failed
+  Actual: true
+Expected: false
+Unsynchronized execution test(s) failed!
+Execution #0. Output is: abcdefghindnkcangbnmgfbedhaecfeabhghcfddddd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghindnkcangbnmgfbedhaecfeabhghcfddddd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+dnk
+can
+gb
+nmgfbedhaecfeabhghcfddddd
+
+
+Execution #1. Output is: abcdefghindbnadcghnfefcdackegadhnbgbfmehddd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghindbnadcghnfefcdackegadhnbgbfmehddd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+dbn
+adc
+gh
+nfefcdackegadhnbgbfmehddd
+
+
+Execution #2. Output is: abcdefghinchfncbkegdahmbcaehgfnabdnfgeddddd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghinchfncbkegdahmbcaehgfnabdnfgeddddd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+chf
+ncb
+ke
+gdahmbcaehgfnabdnfgeddddd
+
+
+Execution #3. Output is: abcdefghinefadeckgdbahngnfgemadchfcdbdndhbd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghinefadeckgdbahngnfgemadchfcdbdndhbd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+efa
+dec
+kg
+dbahngnfgemadchfcdbdndhbd
+
+
+Execution #4. Output is: abcdefghincnfbekacecghdbghmadfhngbefnaddddd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghincnfbekacecghdbghmadfhngbefnaddddd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+cnf
+bek
+ac
+ecghdbghmadfhngbefnaddddd
+
+
+Too many error messages. Error log trimmed.
+Full log dumped to file test.log
+[  FAILED  ] lab2_tests.concurrency (50248 ms)
+[----------] 5 tests from lab2_tests (50791 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test case ran. (50793 ms total)
+[  PASSED  ] 3 tests.
+[  FAILED  ] 2 tests, listed below:
+[  FAILED  ] lab2_tests.threadsync
+[  FAILED  ] lab2_tests.concurrency
+
+ 2 FAILED TESTS
