@@ -1,4 +1,3 @@
-mir@mir-VirtualBox:~/lab2/os-task2-mirik-cyber/test$ ./runTests
 [==========] Running 5 tests from 1 test case.
 [----------] Global test environment set-up.
 [----------] 5 tests from lab2_tests
@@ -15,15 +14,15 @@ Sequential threads are ikm
 tests.cpp:329: Failure
 Expected: (outs.str().length()) >= (solution_len*3), actual: 43 vs 54
 Output is too short.
-Output for graph 5 is: abcdefghinagncebkbdhgcfnbcnafmgehdfhaeddddd
+Output for graph 5 is: abcefghidnegchafgdnkgebnmehcnhfbfdcabddaddd
 Intervals are:
 ab
-cdef
-ghin
-agn
-ceb
-kb
-dhgcfnbcnafmgehdfhaeddddd
+cefg
+hidn
+egc
+haf
+gd
+nkgebnmehcnhfbfdcabddaddd
 tests.cpp:342: Failure
 Expected equality of these values:
   results.size()
@@ -36,7 +35,7 @@ Value of: false
   Actual: false
 Expected: true
 Unexpected character 'b' was found while looking for any of 'ac'.
-[  FAILED  ] lab2_tests.threadsync (543 ms)
+[  FAILED  ] lab2_tests.threadsync (596 ms)
 [ RUN      ] lab2_tests.concurrency
 Completed 0 out of 100 runs.
 Completed 20 out of 100 runs.
@@ -53,88 +52,88 @@ Value of: unsynchronized_failed
   Actual: true
 Expected: false
 Unsynchronized execution test(s) failed!
-Execution #0. Output is: abcdefghindnkcangbnmgfbedhaecfeabhghcfddddd
+Execution #0. Output is: abcdefghinbghbbdnhacegfccfnkhedamdeangfdddd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghindnkcangbnmgfbedhaecfeabhghcfddddd
+Interval with sequential threads ikm not found in abcdefghinbghbbdnhacegfccfnkhedamdeangfdddd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-dnk
-can
-gb
-nmgfbedhaecfeabhghcfddddd
+bgh
+bbd
+nh
+acegfccfnkhedamdeangfdddd
 
 
-Execution #1. Output is: abcdefghindbnadcghnfefcdackegadhnbgbfmehddd
+Execution #1. Output is: abcdefghindghdefaebknacgedhfdbmcnahbgncdfdd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghindbnadcghnfefcdackegadhnbgbfmehddd
+Interval with sequential threads ikm not found in abcdefghindghdefaebknacgedhfdbmcnahbgncdfdd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-dbn
-adc
-gh
-nfefcdackegadhnbgbfmehddd
+dgh
+def
+ae
+bknacgedhfdbmcnahbgncdfdd
 
 
-Execution #2. Output is: abcdefghinchfncbkegdahmbcaehgfnabdnfgeddddd
+Execution #2. Output is: abcdefghindcfhdbcnfcangedbhgadefenkbhgadmdd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinchfncbkegdahmbcaehgfnabdnfgeddddd
+Interval with sequential threads ikm not found in abcdefghindcfhdbcnfcangedbhgadefenkbhgadmdd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-chf
-ncb
+dcf
+hdb
+cn
+fcangedbhgadefenkbhgadmdd
+
+
+Execution #3. Output is: abcdefghinabkccmenfbghdaeffhnbcgdeagdhdddnd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghinabkccmenfbghdaeffhnbcgdeagdhdddnd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+abk
+ccm
+en
+fbghdaeffhnbcgdeagdhdddnd
+
+
+Execution #4. Output is: abcdefghinfnacngkedhdnachebcafdemgbhdgdbfdd
+Sequential execution test failed!
+Interval with sequential threads ikm not found in abcdefghinfnacngkedhdnachebcafdemgbhdgdbfdd
+
+Unsynchronized execution test failed!
+Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
+ab
+cdef
+ghin
+fna
+cng
 ke
-gdahmbcaehgfnabdnfgeddddd
-
-
-Execution #3. Output is: abcdefghinefadeckgdbahngnfgemadchfcdbdndhbd
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinefadeckgdbahngnfgemadchfcdbdndhbd
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-efa
-dec
-kg
-dbahngnfgemadchfcdbdndhbd
-
-
-Execution #4. Output is: abcdefghincnfbekacecghdbghmadfhngbefnaddddd
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghincnfbekacecghdbghmadfhngbefnaddddd
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-cnf
-bek
-ac
-ecghdbghmadfhngbefnaddddd
+dhdnachebcafdemgbhdgdbfdd
 
 
 Too many error messages. Error log trimmed.
 Full log dumped to file test.log
-[  FAILED  ] lab2_tests.concurrency (50248 ms)
-[----------] 5 tests from lab2_tests (50791 ms total)
+[  FAILED  ] lab2_tests.concurrency (50299 ms)
+[----------] 5 tests from lab2_tests (50895 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (50793 ms total)
+[==========] 5 tests from 1 test case ran. (50897 ms total)
 [  PASSED  ] 3 tests.
 [  FAILED  ] 2 tests, listed below:
 [  FAILED  ] lab2_tests.threadsync
