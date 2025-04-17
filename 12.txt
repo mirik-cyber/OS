@@ -1,3 +1,4 @@
+mir@mir-VirtualBox:~/lab2/os-task2-mirik-cyber/test$ ./runTests
 [==========] Running 5 tests from 1 test case.
 [----------] Global test environment set-up.
 [----------] 5 tests from lab2_tests
@@ -11,136 +12,22 @@ Unsynchronized threads are cdfg
 Sequential threads are ikm
 [       OK ] lab2_tests.sequentialthreads (0 ms)
 [ RUN      ] lab2_tests.threadsync
-tests.cpp:329: Failure
-Expected: (outs.str().length()) >= (solution_len*3), actual: 43 vs 54
-Output is too short.
-Output for graph 5 is: abcdefghninhekgfacndamnghcefbfghadcbebddddd
-Intervals are:
-ab
-cdef
-ghni
-nhe
-kgf
-ac
-ndamnghcefbfghadcbebddddd
-tests.cpp:342: Failure
-Expected equality of these values:
-  results.size()
-    Which is: 7
-  solution.size()
-    Which is: 6
-Invalid number of intervals. Expected 6 intervals, but found 7. Did you forget to run some threads? Otherwise maybe your threads are running for too long (or too short)?
-tests.cpp:356: Failure
-Value of: false
-  Actual: false
-Expected: true
-Unexpected character 'b' was found while looking for any of 'ac'.
-[  FAILED  ] lab2_tests.threadsync (599 ms)
+Output for graph 5 is: accaacaccabegbbebgbggegeedfdfddfdffhhhhhikmikmikmikmikmnnnnn
+
+unknown file: Failure
+C++ exception with description "basic_string::substr: __pos (which is 65) > this->size() (which is 60)" thrown in the test body.
+[  FAILED  ] lab2_tests.threadsync (2511 ms)
 [ RUN      ] lab2_tests.concurrency
-Completed 0 out of 100 runs.
-Completed 20 out of 100 runs.
-Completed 40 out of 100 runs.
-Completed 60 out of 100 runs.
-Completed 80 out of 100 runs.
-tests.cpp:427: Failure
-Value of: sequential_failed
-  Actual: true
-Expected: false
-Sequential execution test(s) failed!
-tests.cpp:428: Failure
-Value of: unsynchronized_failed
-  Actual: true
-Expected: false
-Unsynchronized execution test(s) failed!
-Execution #0. Output is: abcdefghinhekgbfdhgmdabfehacgndcebfcddndand
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinhekgbfdhgmdabfehacgndcebfcddndand
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-hek
-gbf
-dh
-gmdabfehacgndcebfcddndand
-
-
-Execution #1. Output is: abcdefghinbhehckegmdebfcndbganhgcdafaddnfdd
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinbhehckegmdebfcndbganhgcdafaddnfdd
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-bhe
-hck
-eg
-mdebfcndbganhgcdafaddnfdd
-
-
-Execution #2. Output is: abcdefghinkgcfmhbadehnebafgefdhcbgnacdndddd
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinkgcfmhbadehnebafgefdhcbgnacdndddd
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-kgc
-fmh
-ba
-dehnebafgefdhcbgnacdndddd
-
-
-Execution #3. Output is: abcdefghinkgndfhcdnageghbmfecbndacdhdebadfd
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinkgndfhcdnageghbmfecbndacdhdebadfd
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-kgn
-dfh
-cd
-nageghbmfecbndacdhdebadfd
-
-
-Execution #4. Output is: abcdefghinbkdcanhegmfefabncgfehndhbagcddddd
-Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinbkdcanhegmfefabncgfehndhbagcddddd
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-ab
-cdef
-ghin
-bkd
-can
-he
-gmfefabncgfehndhbagcddddd
-
-
-Too many error messages. Error log trimmed.
-Full log dumped to file test.log
-[  FAILED  ] lab2_tests.concurrency (49968 ms)
-[----------] 5 tests from lab2_tests (50567 ms total)
+unknown file: Failure
+C++ exception with description "basic_string::substr: __pos (which is 65) > this->size() (which is 60)" thrown in the test body.
+[  FAILED  ] lab2_tests.concurrency (2863 ms)
+[----------] 5 tests from lab2_tests (5374 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (50568 ms total)
+[==========] 5 tests from 1 test case ran. (5375 ms total)
 [  PASSED  ] 3 tests.
 [  FAILED  ] 2 tests, listed below:
 [  FAILED  ] lab2_tests.threadsync
 [  FAILED  ] lab2_tests.concurrency
 
  2 FAILED TESTS
-
-
-
-g++ ../lab2.cpp tests.cpp -lpthread -lgtest -o runTests -I gtest/include -L gtest
