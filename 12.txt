@@ -12,19 +12,19 @@ Unsynchronized threads are cdfg
 Sequential threads are ikm
 [       OK ] lab2_tests.sequentialthreads (0 ms)
 [ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: accaacaccabegbbebgbggegeedfdfddfdffhhhhhikmikmikmikmikmnnnnn
+Output for graph 5 is: accaccacaabegegebgebgebgbdffddfddffhhhhhikmikmikmikmikmnnnnn
 
 unknown file: Failure
 C++ exception with description "basic_string::substr: __pos (which is 65) > this->size() (which is 60)" thrown in the test body.
-[  FAILED  ] lab2_tests.threadsync (2511 ms)
+[  FAILED  ] lab2_tests.threadsync (2459 ms)
 [ RUN      ] lab2_tests.concurrency
 unknown file: Failure
 C++ exception with description "basic_string::substr: __pos (which is 65) > this->size() (which is 60)" thrown in the test body.
-[  FAILED  ] lab2_tests.concurrency (2863 ms)
-[----------] 5 tests from lab2_tests (5374 ms total)
+[  FAILED  ] lab2_tests.concurrency (2148 ms)
+[----------] 5 tests from lab2_tests (4607 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (5375 ms total)
+[==========] 5 tests from 1 test case ran. (4608 ms total)
 [  PASSED  ] 3 tests.
 [  FAILED  ] 2 tests, listed below:
 [  FAILED  ] lab2_tests.threadsync
