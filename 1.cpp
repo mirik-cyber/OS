@@ -82,15 +82,18 @@ int lab2_init() {
     // 1. a
     pthread_create(&tid[0], NULL, thread_a, NULL);
     pthread_create(&tid[2], NULL, thread_c, NULL);
+
+
     pthread_join(tid[0], NULL);
     
-
 
     // 2. b, c, e, g
     pthread_create(&tid[1], NULL, thread_b, NULL);
     pthread_create(&tid[4], NULL, thread_e, NULL);
     pthread_create(&tid[6], NULL, thread_g, NULL);
 
+    pthread_join(tid[1], NULL);
+    pthread_join(tid[4], NULL);
     // 3. d, f (можно сразу, т.к. тесты проверяют группы)
     pthread_create(&tid[3], NULL, thread_d, NULL);
     pthread_create(&tid[5], NULL, thread_f, NULL);
@@ -106,7 +109,7 @@ int lab2_init() {
     pthread_create(&tid[9], NULL, thread_k, NULL);
     pthread_join(tid[6], NULL);
     pthread_join(tid[7], NULL);
-    pthread_join(tid[9], NULL);
+    //pthread_join(tid[9], NULL);
     // 5. i, k, m
     pthread_create(&tid[8], NULL, thread_i, NULL);
     //pthread_create(&tid[9], NULL, thread_k, NULL);
