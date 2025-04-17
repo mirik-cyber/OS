@@ -143,4 +143,4 @@ Full log dumped to file test.log
 
 
 
-acacabegcbegebgdfdfdfhhhikmikmikmnnn
+g++ ../lab2.cpp tests.cpp -lpthread -lgtest -o runTests -I gtest/include -L gtest
