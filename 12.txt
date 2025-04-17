@@ -140,3 +140,7 @@ Full log dumped to file test.log
 [  FAILED  ] lab2_tests.concurrency
 
  2 FAILED TESTS
+
+
+
+accacabegegbbegdfdfdfhhhikmikmikmnnn
