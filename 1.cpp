@@ -102,26 +102,26 @@ int lab2_init() {
     pthread_join(tid[2], NULL);
     pthread_join(tid[3], NULL);
     pthread_join(tid[5], NULL);
-
+    pthread_join(tid[6], NULL);
 
     // 4. h
     pthread_create(&tid[7], NULL, thread_h, NULL);
-    pthread_create(&tid[9], NULL, thread_k, NULL);
-    pthread_join(tid[6], NULL);
     pthread_join(tid[7], NULL);
+    //pthread_create(&tid[9], NULL, thread_k, NULL);
+
     //pthread_join(tid[9], NULL);
     // 5. i, k, m
     pthread_create(&tid[8], NULL, thread_i, NULL);
-    //pthread_create(&tid[9], NULL, thread_k, NULL);
+    pthread_create(&tid[9], NULL, thread_k, NULL);
     pthread_create(&tid[10], NULL, thread_m, NULL);
     pthread_join(tid[8], NULL);
     pthread_join(tid[9], NULL);
-    //pthread_join(tid[10], NULL);
+    pthread_join(tid[10], NULL);
 
     // 6. n
     //pthread_create(&tid[10], NULL, thread_m, NULL);
     pthread_create(&tid[11], NULL, thread_n, NULL);
-    pthread_join(tid[10], NULL);
+    //pthread_join(tid[10], NULL);
     pthread_join(tid[11], NULL);
 
     pthread_mutex_destroy(&lock);
