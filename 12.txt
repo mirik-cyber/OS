@@ -14,15 +14,15 @@ Sequential threads are ikm
 tests.cpp:329: Failure
 Expected: (outs.str().length()) >= (solution_len*3), actual: 43 vs 54
 Output is too short.
-Output for graph 5 is: abcefghidnegchafgdnkgebnmehcnhfbfdcabddaddd
+Output for graph 5 is: abcdefghninhekgfacndamnghcefbfghadcbebddddd
 Intervals are:
 ab
-cefg
-hidn
-egc
-haf
-gd
-nkgebnmehcnhfbfdcabddaddd
+cdef
+ghni
+nhe
+kgf
+ac
+ndamnghcefbfghadcbebddddd
 tests.cpp:342: Failure
 Expected equality of these values:
   results.size()
@@ -35,7 +35,7 @@ Value of: false
   Actual: false
 Expected: true
 Unexpected character 'b' was found while looking for any of 'ac'.
-[  FAILED  ] lab2_tests.threadsync (596 ms)
+[  FAILED  ] lab2_tests.threadsync (599 ms)
 [ RUN      ] lab2_tests.concurrency
 Completed 0 out of 100 runs.
 Completed 20 out of 100 runs.
@@ -52,88 +52,88 @@ Value of: unsynchronized_failed
   Actual: true
 Expected: false
 Unsynchronized execution test(s) failed!
-Execution #0. Output is: abcdefghinbghbbdnhacegfccfnkhedamdeangfdddd
+Execution #0. Output is: abcdefghinhekgbfdhgmdabfehacgndcebfcddndand
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinbghbbdnhacegfccfnkhedamdeangfdddd
+Interval with sequential threads ikm not found in abcdefghinhekgbfdhgmdabfehacgndcebfcddndand
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-bgh
-bbd
-nh
-acegfccfnkhedamdeangfdddd
+hek
+gbf
+dh
+gmdabfehacgndcebfcddndand
 
 
-Execution #1. Output is: abcdefghindghdefaebknacgedhfdbmcnahbgncdfdd
+Execution #1. Output is: abcdefghinbhehckegmdebfcndbganhgcdafaddnfdd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghindghdefaebknacgedhfdbmcnahbgncdfdd
+Interval with sequential threads ikm not found in abcdefghinbhehckegmdebfcndbganhgcdafaddnfdd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-dgh
-def
-ae
-bknacgedhfdbmcnahbgncdfdd
+bhe
+hck
+eg
+mdebfcndbganhgcdafaddnfdd
 
 
-Execution #2. Output is: abcdefghindcfhdbcnfcangedbhgadefenkbhgadmdd
+Execution #2. Output is: abcdefghinkgcfmhbadehnebafgefdhcbgnacdndddd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghindcfhdbcnfcangedbhgadefenkbhgadmdd
+Interval with sequential threads ikm not found in abcdefghinkgcfmhbadehnebafgefdhcbgnacdndddd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-dcf
-hdb
-cn
-fcangedbhgadefenkbhgadmdd
+kgc
+fmh
+ba
+dehnebafgefdhcbgnacdndddd
 
 
-Execution #3. Output is: abcdefghinabkccmenfbghdaeffhnbcgdeagdhdddnd
+Execution #3. Output is: abcdefghinkgndfhcdnageghbmfecbndacdhdebadfd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinabkccmenfbghdaeffhnbcgdeagdhdddnd
+Interval with sequential threads ikm not found in abcdefghinkgndfhcdnageghbmfecbndacdhdebadfd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-abk
-ccm
-en
-fbghdaeffhnbcgdeagdhdddnd
+kgn
+dfh
+cd
+nageghbmfecbndacdhdebadfd
 
 
-Execution #4. Output is: abcdefghinfnacngkedhdnachebcafdemgbhdgdbfdd
+Execution #4. Output is: abcdefghinbkdcanhegmfefabncgfehndhbagcddddd
 Sequential execution test failed!
-Interval with sequential threads ikm not found in abcdefghinfnacngkedhdnachebcafdemgbhdgdbfdd
+Interval with sequential threads ikm not found in abcdefghinbkdcanhegmfefabncgfehndhbagcddddd
 
 Unsynchronized execution test failed!
 Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
 ab
 cdef
 ghin
-fna
-cng
-ke
-dhdnachebcafdemgbhdgdbfdd
+bkd
+can
+he
+gmfefabncgfehndhbagcddddd
 
 
 Too many error messages. Error log trimmed.
 Full log dumped to file test.log
-[  FAILED  ] lab2_tests.concurrency (50299 ms)
-[----------] 5 tests from lab2_tests (50895 ms total)
+[  FAILED  ] lab2_tests.concurrency (49968 ms)
+[----------] 5 tests from lab2_tests (50567 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (50897 ms total)
+[==========] 5 tests from 1 test case ran. (50568 ms total)
 [  PASSED  ] 3 tests.
 [  FAILED  ] 2 tests, listed below:
 [  FAILED  ] lab2_tests.threadsync
