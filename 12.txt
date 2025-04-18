@@ -1,35 +1,7 @@
-mir@mir-VirtualBox:~/lab2/os-task2-mirik-cyber/test$ ./runTests
-[==========] Running 5 tests from 1 test case.
-[----------] Global test environment set-up.
-[----------] 5 tests from lab2_tests
-[ RUN      ] lab2_tests.tasknumber
-TASKID is 5
-[       OK ] lab2_tests.tasknumber (0 ms)
-[ RUN      ] lab2_tests.unsynchronizedthreads
-Unsynchronized threads are cdfg
-[       OK ] lab2_tests.unsynchronizedthreads (0 ms)
-[ RUN      ] lab2_tests.sequentialthreads
-Sequential threads are ikm
-[       OK ] lab2_tests.sequentialthreads (0 ms)
-[ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: accaccacaabegegebgebgebgbdffddfddffhhhhhikmikmikmikmikmnnnnn
-
-unknown file: Failure
-C++ exception with description "basic_string::substr: __pos (which is 65) > this->size() (which is 60)" thrown in the test body.
-[  FAILED  ] lab2_tests.threadsync (2459 ms)
-[ RUN      ] lab2_tests.concurrency
-unknown file: Failure
-C++ exception with description "basic_string::substr: __pos (which is 65) > this->size() (which is 60)" thrown in the test body.
-[  FAILED  ] lab2_tests.concurrency (2148 ms)
-[----------] 5 tests from lab2_tests (4607 ms total)
-
-[----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (4608 ms total)
-[  PASSED  ] 3 tests.
-[  FAILED  ] 2 tests, listed below:
-[  FAILED  ] lab2_tests.threadsync
-[  FAILED  ] lab2_tests.concurrency
-
- 2 FAILED TESTS
-
-accacccaaabegbegebgebbggedffffdddfdhhhhhikmikmikmikmikmnnnnn
+Downloading shunit2-2.1.8 ...
+run_test.sh: строка 94: curl: команда не найдена
+tar (child): shunit2-2.1.8.tar.gz: Функция open завершилась с ошибкой: Нет такого файла или каталога
+tar (child): Error is not recoverable: exiting now
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
+run_test.sh: строка 98: shunit2-2.1.8/shunit2: Нет такого файла или каталога
