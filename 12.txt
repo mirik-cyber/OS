@@ -11,15 +11,15 @@ Unsynchronized threads are cdfg
 Sequential threads are ikm
 [       OK ] lab2_tests.sequentialthreads (0 ms)
 [ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: accaabegegccgebbgcdffgcdfdcccgggghhhikmikmikmkmkmkmnnn
+Output for graph 5 is: aaacbegecgebgcbgcdfgdcfgcdfcgcgcghhhikmikmikmkmkmkmnnn
 Intervals are:
-acca
-abegegcc
-gebbgcdf
-fgcdfd
-cccggg
-ghhh
-ikmikmikmkmkmkmnnn
+aa
+acbe
+gecg
+ebg
+cbg
+cd
+fgdcfgcdfcgcgcghhhikmikmikmkmkmkmnnn
 tests.cpp:342: Failure
 Expected equality of these values:
   results.size()
@@ -27,10 +27,18 @@ Expected equality of these values:
   solution.size()
     Which is: 6
 Invalid number of intervals. Expected 6 intervals, but found 7. Did you forget to run some threads? Otherwise maybe your threads are running for too long (or too short)?
+tests.cpp:359: Failure
+Value of: is_parallel
+  Actual: false
+Expected: true
+It seems that your threads are not running in parallel. Check the 'ac' interval
+tests.cpp:362: Failure
+Expected: (interval_stats[solution.at(i).at(j)]) > (0), actual: 0 vs 0
+Thread 'c' did not run during the 'ac' interval
 tests.cpp:356: Failure
 Value of: false
   Actual: false
 Expected: true
 Unexpected character 'a' was found while looking for any of 'bcge'.
-[  FAILED  ] lab2_tests.threadsync (2209 ms)
+[  FAILED  ] lab2_tests.threadsync (2112 ms)
 [ RUN      ] lab2_tests.concurrency
