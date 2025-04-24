@@ -54,7 +54,7 @@ void* thread_c(void*) {
         pthread_mutex_unlock(&lock);
         computation();
     }
-    pthread_join(tid[0], NULL);
+    //pthread_join(tid[0], NULL);
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
@@ -176,8 +176,8 @@ void* thread_k(void*) {
         pthread_mutex_unlock(&lock);
         computation();
     }
-    //pthread_join(tid[7], NULL);
-    sem_wait(&sem_k);
+    pthread_join(tid[7], NULL);
+    //sem_wait(&sem_k);
     for (int i = 0; i < Q; ++i) {
             sem_wait(&sem_k);
             pthread_mutex_lock(&lock);
@@ -196,6 +196,7 @@ void* thread_m(void*) {
         std::cout << "m" << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
+        sem_post(&sem_i);
     }
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
@@ -239,7 +240,7 @@ int lab2_init() {
     // 4. h
     pthread_create(&tid[7], NULL, thread_h, NULL);
     pthread_create(&tid[9], NULL, thread_k, NULL);
-    pthread_join(tid[7], NULL);
+    //pthread_join(tid[7], NULL);
     pthread_join(tid[6], NULL);
     //pthread_create(&tid[9], NULL, thread_k, NULL);
     //pthread_join(tid[9], NULL);
