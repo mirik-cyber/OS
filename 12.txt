@@ -1,26 +1,4 @@
-[==========] Running 5 tests from 1 test case.
-[----------] Global test environment set-up.
-[----------] 5 tests from lab2_tests
-[ RUN      ] lab2_tests.tasknumber
-TASKID is 5
-[       OK ] lab2_tests.tasknumber (1 ms)
-[ RUN      ] lab2_tests.unsynchronizedthreads
-Unsynchronized threads are cdfg
-[       OK ] lab2_tests.unsynchronizedthreads (0 ms)
-[ RUN      ] lab2_tests.sequentialthreads
-Sequential threads are ikm
-[       OK ] lab2_tests.sequentialthreads (0 ms)
-[ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: acaccacacagcebbcebcbcebggcegegdfcgcfccgdcfdfggfdgdhghhghghggikmikmikmikmikmnmnnmmnnmm
-Intervals are:
-acaccacaca
-gcebbcebcbcebggcegeg
-dfcgcfccgdcfdfggfdgd
-hghhghghggikmik
-mikmikmikmnmnnm
-mnnmm
-tests.cpp:356: Failure
-Value of: false
+accacccaaacbegcbceggcecgegbebbfdgcdfggfcddfgcdgfccghghghhgghikmikmikmnnnnnikmikmmmmmm
   Actual: false
 Expected: true
 Unexpected character 'i' was found while looking for any of 'ghk'.
