@@ -3,7 +3,7 @@
 [----------] 5 tests from lab2_tests
 [ RUN      ] lab2_tests.tasknumber
 TASKID is 5
-[       OK ] lab2_tests.tasknumber (0 ms)
+[       OK ] lab2_tests.tasknumber (1 ms)
 [ RUN      ] lab2_tests.unsynchronizedthreads
 Unsynchronized threads are cdfg
 [       OK ] lab2_tests.unsynchronizedthreads (0 ms)
@@ -11,77 +11,18 @@ Unsynchronized threads are cdfg
 Sequential threads are ikm
 [       OK ] lab2_tests.sequentialthreads (0 ms)
 [ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: accacaaaccbegbecebcecegcbgbcgcdfcgfdfcgfgdcdgfggdchkhgghgkgghkkkhikmikmikmikmikmnmnmnmmnmn
+Output for graph 5 is: acaccacacagcebbcebcbcebggcegegdfcgcfccgdcfdfggfdgdhghhghghggikmikmikmikmikmnmnnmmnnmm
 Intervals are:
-accacaaacc
-begbecebcecegcbgbcgc
-dfcgfdfcgfgdcdgfggdc
-hkhgghgkgghkkkh
-ikmikmikmikmikm
-nmnmnmmnmn
-[       OK ] lab2_tests.threadsync (2518 ms)
+acaccacaca
+gcebbcebcbcebggcegeg
+dfcgcfccgdcfdfggfdgd
+hghhghghggikmik
+mikmikmikmnmnnm
+mnnmm
+tests.cpp:356: Failure
+Value of: false
+  Actual: false
+Expected: true
+Unexpected character 'i' was found while looking for any of 'ghk'.
+[  FAILED  ] lab2_tests.threadsync (5299 ms)
 [ RUN      ] lab2_tests.concurrency
-Completed 0 out of 100 runs.
-Completed 20 out of 100 runs.
-Completed 40 out of 100 runs.
-Completed 60 out of 100 runs.
-Completed 80 out of 100 runs.
-tests.cpp:427: Failure
-Value of: sequential_failed
-  Actual: true
-Expected: false
-Sequential execution test(s) failed!
-tests.cpp:428: Failure
-Value of: unsynchronized_failed
-  Actual: true
-Expected: false
-Unsynchronized execution test(s) failed!
-Execution #0. Output is: accaaaabegbcgebgbecgbceggecdfgdcdfdfcgdccfgfccgccgcggghkhkghkhkkhikmikmikmikmikmnnmmnnmmnm
-Sequential execution test failed!
-Interval with sequential threads ikm not found in accaaaabegbcgebgbecgbceggecdfgdcdfdfcgdccfgfccgccgcggghkhkghkhkkhikmikmikmikmikmnnmmnnmmnm
-
-Execution #1. Output is: accaccacaccacbeggbcegbgbbcecegegcdfgcfdfgccdgfgfgdggdghkhkhgkhhkikkmikmikmikmiknmnmnnmnmmm
-Sequential execution test failed!
-Interval with sequential threads ikm not found in accaccacaccacbeggbcegbgbbcecegegcdfgcfdfgccdgfgfgdggdghkhkhgkhhkikkmikmikmikmiknmnmnnmnmmm
-
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-accaccacac
-cacbeggbcegbgbbceceg
-egcdfgcfdfgccdgfgfgd
-ggdghkhkhgkhhki
-kkmikmikmikmikn
-mnmnnmnmmm
-
-
-Execution #2. Output is: acacccacccccaccaccccbegggbeebgbegbgedfdgfggfgdddfggfhkgkhkgkhghkhikmikmikmikmikmnmmnnnmnmm
-Unsynchronized execution test failed!
-Interval with unsynchronized threads cdfg not found. None of the following intervals matched:
-acacccaccc
-ccaccaccccbegggbeebg
-begbgedfdgfggfgdddfg
-gfhkgkhkgkhghkh
-ikmikmikmikmikm
-nmmnnnmnmm
-
-
-Execution #3. Output is: acacacacacbeggceebbcgcbecgccbecgcdfcggcgfdfgdfdfgdhkhkgkhgkhghkggikmikmikmikmiknmnmnmmnnmm
-Sequential execution test failed!
-Interval with sequential threads ikm not found in acacacacacbeggceebbcgcbecgccbecgcdfcggcgfdfgdfdfgdhkhkgkhgkhghkggikmikmikmikmiknmnmnmmnnmm
-
-Execution #6. Output is: accaaacacbegbecbeggcbeebccgcgdfccgfdcgcfgddfgdfcgcghkkhhgkhkkghggikmikmikmikmikmnnnmmnmnmm
-Sequential execution test failed!
-Interval with sequential threads ikm not found in accaaacacbegbecbeggcbeebccgcgdfccgfdcgcfgddfgdfcgcghkkhhgkhkkghggikmikmikmikmikmnnnmmnmnmm
-
-Too many error messages. Error log trimmed.
-Full log dumped to file test.log
-[  FAILED  ] lab2_tests.concurrency (263502 ms)
-[----------] 5 tests from lab2_tests (266021 ms total)
-
-[----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (266022 ms total)
-[  PASSED  ] 4 tests.
-[  FAILED  ] 1 test, listed below:
-[  FAILED  ] lab2_tests.concurrency
-
- 1 FAILED TEST
