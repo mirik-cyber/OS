@@ -1,160 +1,234 @@
+#include "lab2.h"
+#include <pthread.h>
+#include <semaphore.h>
 #include <iostream>
-#include <vector>
-#include <queue>
-#include <string>
-#include <cstdlib>
-#include <ctime>
-#include <algorithm>
+#include <cstring>
 
-using namespace std;
+#define NUM_THREADS 12
+#define Q 5
 
-const int PAGE_FRAME_COUNT = 14; // для варианта 21
-const int TIMER_INTERVAL = 5;    // каждые 5 операций - прерывание таймера
+pthread_t tid[NUM_THREADS];
+pthread_mutex_t lock;
+sem_t sem_i, sem_k, sem_m;
+int err;
 
-struct PageEntry {
-    int vpn;         // Номер виртуальной страницы
-    bool R;          // Бит обращения
-    bool M;          // Бит модификации
-    uint8_t counter; // Счетчик для алгоритма Aging (1 байт)
+unsigned int lab2_thread_graph_id() { return 5; }
+const char* lab2_unsynchronized_threads() { return "cdfg"; }
+const char* lab2_sequential_threads() { return "ikm"; }
 
-    PageEntry() : vpn(-1), R(false), M(false), counter(0) {}
-};
-
-vector<PageEntry> page_table(PAGE_FRAME_COUNT);
-int access_count = 0;
-
-// Ищем страницу по номеру VPN
-int find_page(int vpn) {
-    for (int i = 0; i < PAGE_FRAME_COUNT; ++i) {
-        if (page_table[i].vpn == vpn)
-            return i;
+// ========== ПОТОКИ ==========
+void* run_thread(const char c) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << c << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
     }
-    return -1;
+    return nullptr;
 }
 
-// Печатаем текущее состояние таблицы
-void print_table() {
-    for (int i = 0; i < PAGE_FRAME_COUNT; ++i) {
-        if (page_table[i].vpn == -1)
-            cout << "#";
-        else
-            cout << page_table[i].vpn;
-        if (i != PAGE_FRAME_COUNT - 1)
-            cout << " ";
+void* thread_a(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'a' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
     }
-    cout << "\n";
+    return nullptr;
 }
 
-// Функция генерации случайного числа в диапазоне [a, b]
-int uniform_rnd(int a, int b) {
-    return rand() % (b - a + 1) + a;
+void* thread_b(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'b' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
 }
 
-// Прерывание таймера для всех страниц
-void timer_interrupt() {
-    for (auto& entry : page_table) {
-        entry.counter >>= 1;
-        if (entry.R) {
-            entry.counter |= 0x80; // Установить старший бит
+void* thread_c(void*) {
+    for (int i = 0; i < 3*Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'c' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+
+void* thread_d(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'd' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+
+void* thread_e(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'e' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+
+void* thread_f(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'f' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+
+void* thread_g(void*) {
+    for (int i = 0; i < 3*Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'g' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+
+void* thread_h(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'h' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+
+void* thread_n(void*) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'n' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    return nullptr;
+}
+//void* thread_a(void*) { return run_thread('a'); }
+//void* thread_b(void*) { return run_thread('b'); }
+//void* thread_c(void*) { return run_thread('c'); }
+//void* thread_d(void*) { return run_thread('d'); }
+//void* thread_e(void*) { return run_thread('e'); }
+//void* thread_f(void*) { return run_thread('f'); }
+//void* thread_g(void*) { return run_thread('g'); }
+//void* thread_h(void*) { return run_thread('h'); }
+//void* thread_n(void*) { return run_thread('n'); }
+
+// ======= СИНХРОНИЗИРОВАННЫЕ =======
+void* thread_i(void*) {
+    for (int i = 0; i < Q; ++i) {
+        sem_wait(&sem_i);
+        pthread_mutex_lock(&lock);
+        std::cout << "i" << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+        sem_post(&sem_k);
+    }
+    return nullptr;
+}
+void* thread_k(void*) {
+    for (int i = 0; i < 2*Q; ++i) {
+        if (i < Q){
+            pthread_mutex_lock(&lock);
+            std::cout << "k" << std::flush;
+            pthread_mutex_unlock(&lock);
+            computation();
         }
-        entry.R = false;
-    }
-}
-
-// ---------------- FIFO ----------------
-void fifo_replace(int op_type, int vpn) {
-    static queue<int> fifo_queue;
-
-    int pos = find_page(vpn);
-    if (pos != -1) {
-        page_table[pos].R = true;
-        if (op_type == 1) page_table[pos].M = true;
-    } else {
-        for (int i = 0; i < PAGE_FRAME_COUNT; ++i) {
-            if (page_table[i].vpn == -1) {
-                page_table[i].vpn = vpn;
-                page_table[i].R = true;
-                page_table[i].M = (op_type == 1);
-                fifo_queue.push(i);
-                print_table();
-                return;
-            }
-        }
-        int victim = fifo_queue.front(); fifo_queue.pop();
-        page_table[victim].vpn = vpn;
-        page_table[victim].R = true;
-        page_table[victim].M = (op_type == 1);
-        fifo_queue.push(victim);
-    }
-    print_table();
-}
-
-// ---------------- AGING ----------------
-void aging_replace(int op_type, int vpn) {
-    int pos = find_page(vpn);
-    if (pos != -1) {
-        page_table[pos].R = true;
-        if (op_type == 1) page_table[pos].M = true;
-    } else {
-        for (int i = 0; i < PAGE_FRAME_COUNT; ++i) {
-            if (page_table[i].vpn == -1) {
-                page_table[i].vpn = vpn;
-                page_table[i].R = true;
-                page_table[i].M = (op_type == 1);
-                page_table[i].counter = 0;
-                print_table();
-                return;
-            }
-        }
-
-        int min_value = 256;
-        vector<int> candidates;
-        for (int i = 0; i < PAGE_FRAME_COUNT; ++i) {
-            if (page_table[i].counter < min_value) {
-                candidates.clear();
-                candidates.push_back(i);
-                min_value = page_table[i].counter;
-            } else if (page_table[i].counter == min_value) {
-                candidates.push_back(i);
-            }
-        }
-
-        int victim = candidates[uniform_rnd(0, candidates.size() - 1)];
-        page_table[victim].vpn = vpn;
-        page_table[victim].R = true;
-        page_table[victim].M = (op_type == 1);
-        page_table[victim].counter = 0;
-    }
-    print_table();
-}
-
-// ---------------- MAIN ----------------
-int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        cerr << "Usage: lab4 <algorithm_number>\n";
-        return 1;
-    }
-
-    srand(time(0));
-    int algorithm = stoi(argv[1]);
-    int op_type, vpn;
-
-    while (cin >> op_type >> vpn) {
-        ++access_count;
-
-        if (algorithm == 1)
-            fifo_replace(op_type, vpn);
-        else if (algorithm == 2)
-            aging_replace(op_type, vpn);
         else {
-            cerr << "Invalid algorithm number: " << algorithm << "\n";
-            return 2;
-        }
-
-        if (access_count % TIMER_INTERVAL == 0) {
-            timer_interrupt();
+            sem_wait(&sem_k);
+            pthread_mutex_lock(&lock);
+            std::cout << "k" << std::flush;
+            pthread_mutex_unlock(&lock);
+            computation();
+            if (i < 2*Q)
+                sem_post(&sem_m);
         }
     }
+    return nullptr;
+}
+void* thread_m(void*) {
+    for (int i = 0; i < 2*Q; ++i) {
+        if (i < Q)
+            sem_wait(&sem_m);
+        pthread_mutex_lock(&lock);
+        std::cout << "m" << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+        if (i < Q-1)
+            sem_post(&sem_i);
+    }
+    return nullptr;
+}
 
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
+int lab2_init() {
+    pthread_mutex_init(&lock, NULL);
+    sem_init(&sem_i, 0, 1);
+    sem_init(&sem_k, 0, 0);
+    sem_init(&sem_m, 0, 0);
+
+    // 1. a
+    //pthread_create(&tid[12], NULL, , NULL);
+    pthread_create(&tid[0], NULL, thread_a, NULL);
+    pthread_create(&tid[2], NULL, thread_c, NULL);
+
+
+    pthread_join(tid[0], NULL);
+
+    // 2. b, c, e, g
+    pthread_create(&tid[1], NULL, thread_b, NULL);
+    pthread_create(&tid[4], NULL, thread_e, NULL);
+    pthread_create(&tid[6], NULL, thread_g, NULL);
+
+    pthread_join(tid[1], NULL);
+    pthread_join(tid[4], NULL);
+    // 3. d, f (можно сразу, т.к. тесты проверяют группы)
+    pthread_create(&tid[3], NULL, thread_d, NULL);
+    pthread_create(&tid[5], NULL, thread_f, NULL);
+
+    // Ждём всю группу c, d, f, g
+    pthread_join(tid[2], NULL);
+    pthread_join(tid[3], NULL);
+    pthread_join(tid[5], NULL);
+
+    // 4. h
+    pthread_create(&tid[7], NULL, thread_h, NULL);
+    pthread_create(&tid[9], NULL, thread_k, NULL);
+    pthread_join(tid[7], NULL);
+    pthread_join(tid[6], NULL);
+    //pthread_create(&tid[9], NULL, thread_k, NULL);
+    //pthread_join(tid[9], NULL);
+    // 5. i, k, m
+    pthread_create(&tid[8], NULL, thread_i, NULL);
+
+    pthread_create(&tid[10], NULL, thread_m, NULL);
+    pthread_join(tid[8], NULL);
+    pthread_join(tid[9], NULL);
+
+    // 6. n
+    //pthread_create(&tid[10], NULL, thread_m, NULL);
+    pthread_create(&tid[11], NULL, thread_n, NULL);
+    //pthread_join(tid[10], NULL);
+    pthread_join(tid[10], NULL);
+    pthread_join(tid[11], NULL);
+
+    pthread_mutex_destroy(&lock);
+    sem_destroy(&sem_i);
+    sem_destroy(&sem_k);
+    sem_destroy(&sem_m);
+
+    //std::cout << std::endl;
     return 0;
 }
