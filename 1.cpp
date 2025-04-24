@@ -48,14 +48,14 @@ void* thread_b(void*) {
 }
 
 void* thread_c(void*) {
-    for (int i = 0; i < Q; ++i) {
+    for (int i = 0; i < 3*Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
     }
     //pthread_join(tid[0], NULL);
-    for (int i = 0; i < Q; ++i) {
+    /*for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -68,7 +68,7 @@ void* thread_c(void*) {
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
-    }
+    }*/
     return nullptr;
 }
 
@@ -103,15 +103,15 @@ void* thread_f(void*) {
 }
 
 void* thread_g(void*) {
-    for (int i = 0; i < Q; ++i) {
+    for (int i = 0; i < 3*Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
     }
-    pthread_join(tid[1], NULL);
-    pthread_join(tid[4], NULL);
-    for (int i = 0; i < Q; ++i) {
+    //pthread_join(tid[1], NULL);
+    //pthread_join(tid[4], NULL);
+    /*for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -124,7 +124,7 @@ void* thread_g(void*) {
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
-    }
+    }*/
     return nullptr;
 }
 
@@ -176,7 +176,7 @@ void* thread_k(void*) {
         pthread_mutex_unlock(&lock);
         computation();
     }
-    pthread_join(tid[7], NULL);
+    //pthread_join(tid[7], NULL);
     //sem_wait(&sem_k);
     for (int i = 0; i < Q; ++i) {
             sem_wait(&sem_k);
@@ -235,12 +235,12 @@ int lab2_init() {
 
     // Ждём всю группу c, d, f, g
     pthread_join(tid[2], NULL);
-    //pthread_join(tid[3], NULL);
-    //pthread_join(tid[5], NULL);
+    pthread_join(tid[3], NULL);
+    pthread_join(tid[5], NULL);
     // 4. h
     pthread_create(&tid[7], NULL, thread_h, NULL);
     pthread_create(&tid[9], NULL, thread_k, NULL);
-    //pthread_join(tid[7], NULL);
+    pthread_join(tid[7], NULL);
     pthread_join(tid[6], NULL);
     //pthread_create(&tid[9], NULL, thread_k, NULL);
     //pthread_join(tid[9], NULL);
@@ -248,7 +248,7 @@ int lab2_init() {
     pthread_create(&tid[8], NULL, thread_i, NULL);
 
     pthread_create(&tid[10], NULL, thread_m, NULL);
-    //pthread_join(tid[8], NULL);
+    pthread_join(tid[8], NULL);
     pthread_join(tid[9], NULL);
 
     // 6. n
