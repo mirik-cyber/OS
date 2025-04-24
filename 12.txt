@@ -11,18 +11,23 @@ Unsynchronized threads are cdfg
 Sequential threads are ikm
 [       OK ] lab2_tests.sequentialthreads (0 ms)
 [ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: accacacbegbegcbecgdffgdgcfdcggcgghhhikmikmikmkmkmkmnnn
+Output for graph 5 is: accccccaabegcecgecbbggdfgfdfgdggghhhikmikmikmkmkmkmnnn
 Intervals are:
-accaca
-cbegbegcbecg
-dffgdgcfdcgg
-cgghhhikm
+accccc
+caabegcecgec
+bbggdfgfdfgd
+ggghhhikm
 ikmikmkmk
 mkmnnn
+tests.cpp:359: Failure
+Value of: is_parallel
+  Actual: false
+Expected: true
+It seems that your threads are not running in parallel. Check the 'ac' interval
 tests.cpp:356: Failure
 Value of: false
   Actual: false
 Expected: true
-Unexpected character 'c' was found while looking for any of 'ghk'.
-[  FAILED  ] lab2_tests.threadsync (2089 ms)
+Unexpected character 'a' was found while looking for any of 'bcge'.
+[  FAILED  ] lab2_tests.threadsync (2382 ms)
 [ RUN      ] lab2_tests.concurrency
