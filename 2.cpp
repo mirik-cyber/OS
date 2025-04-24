@@ -1,37 +1,9 @@
-void* thread_i(void*) {
-    for (int i = 0; i < 3; ++i) {
-        sem_wait(&sem_i);
-        pthread_mutex_lock(&lock);
-        std::cout << 'i' << std::flush;
-        pthread_mutex_unlock(&lock);
-        computation();
-        sem_post(&sem_k); // запускает k
-    }
-    return nullptr;
-}
+// ===== ИНТЕРВАЛ 1: только a =====
+pthread_create(&tid[0], nullptr, thread_a, nullptr); // a
+pthread_join(tid[0], nullptr); // ждем завершения a
 
-void* thread_k(void*) {
-    for (int i = 0; i < 6; ++i) {
-        sem_wait(&sem_k);
-        pthread_mutex_lock(&lock);
-        std::cout << 'k' << std::flush;
-        pthread_mutex_unlock(&lock);
-        computation();
-        sem_post(&sem_m); // запускает m
-    }
-    return nullptr;
-}
-
-void* thread_m(void*) {
-    for (int i = 0; i < 6; ++i) {
-        sem_wait(&sem_m);
-        pthread_mutex_lock(&lock);
-        std::cout << 'm' << std::flush;
-        pthread_mutex_unlock(&lock);
-        computation();
-        // после первых 3 – продолжает вызывать k
-        if (i >= 2) sem_post(&sem_k);
-        else sem_post(&sem_i); // первые 3 круга замыкаются через i
-    }
-    return nullptr;
-}
+// ===== ИНТЕРВАЛ 2: теперь можно c, b, e, g =====
+pthread_create(&tid[2], nullptr, thread_c, nullptr); // c
+pthread_create(&tid[1], nullptr, thread_b, nullptr); // b
+pthread_create(&tid[4], nullptr, thread_e, nullptr); // e
+pthread_create(&tid[6], nullptr, thread_g, nullptr); // g
