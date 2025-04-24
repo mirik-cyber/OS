@@ -17,15 +17,15 @@ const char* lab2_unsynchronized_threads() { return "cdfg"; }
 const char* lab2_sequential_threads() { return "ikm"; }
 
 // ========== ПОТОКИ ==========
-void* run_thread(const char c) {
-    for (int i = 0; i < Q; ++i) {
-        pthread_mutex_lock(&lock);
-        std::cout << c << std::flush;
-        pthread_mutex_unlock(&lock);
-        computation();
-    }
-    return nullptr;
-}
+//void* run_thread(const char c) {
+ //   for (int i = 0; i < Q; ++i) {
+   //     pthread_mutex_lock(&lock);
+     //   std::cout << c << std::flush;
+       // pthread_mutex_unlock(&lock);
+        //computation();
+   // }
+    //return nullptr;
+//}
 
 void* thread_a(void*) {
     for (int i = 0; i < Q; ++i) {
@@ -48,7 +48,22 @@ void* thread_b(void*) {
 }
 
 void* thread_c(void*) {
-    for (int i = 0; i < 3*Q; ++i) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'c' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    pthread_join(tid[0], NULL);
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'c' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    pthread_join(tid[1], NULL);
+    pthread_join(tid[4], NULL);
+    for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -88,7 +103,23 @@ void* thread_f(void*) {
 }
 
 void* thread_g(void*) {
-    for (int i = 0; i < 3*Q; ++i) {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'g' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    pthread_join(tid[1], NULL);
+    pthread_join(tid[4], NULL);
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'g' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    pthread_join(tid[3], NULL);
+    pthread_join(tid[5], NULL);
+    for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -139,35 +170,38 @@ void* thread_i(void*) {
     return nullptr;
 }
 void* thread_k(void*) {
-    for (int i = 0; i < 2*Q; ++i) {
-        if (i < Q){
-            pthread_mutex_lock(&lock);
-            std::cout << "k" << std::flush;
-            pthread_mutex_unlock(&lock);
-            computation();
-        }
-        else {
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'k' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
+    }
+    //pthread_join(tid[7], NULL);
+    sem_wait(&sem_k);
+    for (int i = 0; i < Q; ++i) {
             sem_wait(&sem_k);
             pthread_mutex_lock(&lock);
             std::cout << "k" << std::flush;
             pthread_mutex_unlock(&lock);
             computation();
-            if (i < 2*Q)
+            if (i < Q)
                 sem_post(&sem_m);
-        }
     }
     return nullptr;
 }
 void* thread_m(void*) {
-    for (int i = 0; i < 2*Q; ++i) {
-        if (i < Q)
-            sem_wait(&sem_m);
+    for (int i = 0; i < Q; ++i) {
+        sem_wait(&sem_m);
         pthread_mutex_lock(&lock);
         std::cout << "m" << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
-        if (i < Q-1)
-            sem_post(&sem_i);
+    }
+    for (int i = 0; i < Q; ++i) {
+        pthread_mutex_lock(&lock);
+        std::cout << 'm' << std::flush;
+        pthread_mutex_unlock(&lock);
+        computation();
     }
     return nullptr;
 }
@@ -200,9 +234,8 @@ int lab2_init() {
 
     // Ждём всю группу c, d, f, g
     pthread_join(tid[2], NULL);
-    pthread_join(tid[3], NULL);
-    pthread_join(tid[5], NULL);
-
+    //pthread_join(tid[3], NULL);
+    //pthread_join(tid[5], NULL);
     // 4. h
     pthread_create(&tid[7], NULL, thread_h, NULL);
     pthread_create(&tid[9], NULL, thread_k, NULL);
@@ -214,7 +247,7 @@ int lab2_init() {
     pthread_create(&tid[8], NULL, thread_i, NULL);
 
     pthread_create(&tid[10], NULL, thread_m, NULL);
-    pthread_join(tid[8], NULL);
+    //pthread_join(tid[8], NULL);
     pthread_join(tid[9], NULL);
 
     // 6. n
