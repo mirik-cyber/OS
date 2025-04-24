@@ -11,18 +11,16 @@ Unsynchronized threads are cdfg
 Sequential threads are ikm
 [       OK ] lab2_tests.sequentialthreads (0 ms)
 [ RUN      ] lab2_tests.threadsync
-Output for graph 5 is: accacacbegcgggbgeccbgcgcedfgfdfgdhhhikmikmikmkmkmkmnnn
+Output for graph 5 is: acaccabegccgbcccegegbcdfgdfgdfggghhhikmikmikmkmkmkmnnn
 Intervals are:
-accaca
-cbegcgggbgec
-cbgcgcedfgfd
-fgdhhhikm
+acacca
+begccgbccceg
+egbcdfgdfgdf
+ggghhhikm
 ikmikmkmk
 mkmnnn
 tests.cpp:356: Failure
 Value of: false
   Actual: false
 Expected: true
-Unexpected character 'b' was found while looking for any of 'cdfg'.
-[  FAILED  ] lab2_tests.threadsync (1986 ms)
-[ RUN      ] lab2_tests.concurrency
+Unexpected character 'e' was found while looking for any of 'cdfg'.
