@@ -1,6 +1,1 @@
-accacccaaacbegcbceggcecgegbebbfdgcdfggfcddfgcdgfccghghghhgghikmikmikmnnnnnikmikmmmmmm
-  Actual: false
-Expected: true
-Unexpected character 'i' was found while looking for any of 'ghk'.
-[  FAILED  ] lab2_tests.threadsync (5299 ms)
-[ RUN      ] lab2_tests.concurrency
+accacaccaaccccccccccbegegbgeegbebgbggggggggggdffdfffdddhhhhh
