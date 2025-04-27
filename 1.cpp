@@ -172,36 +172,38 @@ int lab2_init() {
     sem_init(&sem_h, 0, 0);
     sem_init(&sem_n, 0, 0);
 
-    // 1. a, c
+    // 1. a и c
     pthread_create(&tid[0], NULL, thread_a, NULL);
     pthread_create(&tid[2], NULL, thread_c, NULL);
-    pthread_join(tid[0], NULL);
-    pthread_join(tid[2], NULL);
+    pthread_join(tid[0], NULL); // Ждём только 'a'
 
-    // 2. b, e, g
+    // 2. b, e, g (после a, но параллельно с c)
     pthread_create(&tid[1], NULL, thread_b, NULL);
     pthread_create(&tid[4], NULL, thread_e, NULL);
     pthread_create(&tid[6], NULL, thread_g, NULL);
+
+    // 3. d, f параллельно
+    pthread_create(&tid[3], NULL, thread_d, NULL);
+    pthread_create(&tid[5], NULL, thread_f, NULL);
+
+    // Ждём ВСЕ: c, b, e, g, d, f
+    pthread_join(tid[2], NULL);
     pthread_join(tid[1], NULL);
     pthread_join(tid[4], NULL);
     pthread_join(tid[6], NULL);
-
-    // 3. d, f
-    pthread_create(&tid[3], NULL, thread_d, NULL);
-    pthread_create(&tid[5], NULL, thread_f, NULL);
     pthread_join(tid[3], NULL);
     pthread_join(tid[5], NULL);
 
-    // 4. h, k
+    // 4. h
     pthread_create(&tid[7], NULL, thread_h, NULL);
-    pthread_create(&tid[9], NULL, thread_k, NULL);
     pthread_join(tid[7], NULL);
-    pthread_join(tid[9], NULL);
 
-    // 5. i, m
+    // 5. i, k, m (после h)
     pthread_create(&tid[8], NULL, thread_i, NULL);
+    pthread_create(&tid[9], NULL, thread_k, NULL);
     pthread_create(&tid[10], NULL, thread_m, NULL);
     pthread_join(tid[8], NULL);
+    pthread_join(tid[9], NULL);
     pthread_join(tid[10], NULL);
 
     // 6. n
