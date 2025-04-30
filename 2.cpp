@@ -48,14 +48,14 @@ void* thread_b(void*) {
 }
 
 void* thread_c(void*) {
-    for (int i = 0; i < 3*Q; ++i) {
+    for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
     }
     //pthread_join(tid[0], NULL);
-    /*for (int i = 0; i < Q; ++i) {
+    for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -68,7 +68,7 @@ void* thread_c(void*) {
         std::cout << 'c' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
-    }*/
+    }
     return nullptr;
 }
 
@@ -103,7 +103,7 @@ void* thread_f(void*) {
 }
 
 void* thread_g(void*) {
-    for (int i = 0; i < 3*Q; ++i) {
+    for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -111,7 +111,7 @@ void* thread_g(void*) {
     }
     //pthread_join(tid[1], NULL);
     //pthread_join(tid[4], NULL);
-    /*for (int i = 0; i < Q; ++i) {
+    for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
@@ -124,7 +124,7 @@ void* thread_g(void*) {
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
-    }*/
+    }
     return nullptr;
 }
 
