@@ -16,17 +16,11 @@ unsigned int lab2_thread_graph_id() { return 5; }
 const char* lab2_unsynchronized_threads() { return "cdfg"; }
 const char* lab2_sequential_threads() { return "ikm"; }
 
-// ========== ПОТОКИ ==========
-//void* run_thread(const char c) {
- //   for (int i = 0; i < Q; ++i) {
-   //     pthread_mutex_lock(&lock);
-     //   std::cout << c << std::flush;
-       // pthread_mutex_unlock(&lock);
-        //computation();
-   // }
-    //return nullptr;
-//}
+void computation() {
+    // Заглушка для вычислений
+}
 
+// ========== ПОТОКИ ==========
 void* thread_a(void*) {
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
@@ -54,7 +48,6 @@ void* thread_c(void*) {
         pthread_mutex_unlock(&lock);
         computation();
     }
-    //pthread_join(tid[0], NULL);
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'c' << std::flush;
@@ -109,8 +102,6 @@ void* thread_g(void*) {
         pthread_mutex_unlock(&lock);
         computation();
     }
-    //pthread_join(tid[1], NULL);
-    //pthread_join(tid[4], NULL);
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
@@ -147,15 +138,6 @@ void* thread_n(void*) {
     }
     return nullptr;
 }
-//void* thread_a(void*) { return run_thread('a'); }
-//void* thread_b(void*) { return run_thread('b'); }
-//void* thread_c(void*) { return run_thread('c'); }
-//void* thread_d(void*) { return run_thread('d'); }
-//void* thread_e(void*) { return run_thread('e'); }
-//void* thread_f(void*) { return run_thread('f'); }
-//void* thread_g(void*) { return run_thread('g'); }
-//void* thread_h(void*) { return run_thread('h'); }
-//void* thread_n(void*) { return run_thread('n'); }
 
 // ======= СИНХРОНИЗИРОВАННЫЕ =======
 void* thread_i(void*) {
@@ -169,26 +151,20 @@ void* thread_i(void*) {
     }
     return nullptr;
 }
+
 void* thread_k(void*) {
     for (int i = 0; i < Q; ++i) {
+        sem_wait(&sem_k);
         pthread_mutex_lock(&lock);
         std::cout << 'k' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
-    }
-    //pthread_join(tid[7], NULL);
-    //sem_wait(&sem_k);
-    for (int i = 0; i < Q; ++i) {
-            sem_wait(&sem_k);
-            pthread_mutex_lock(&lock);
-            std::cout << "k" << std::flush;
-            pthread_mutex_unlock(&lock);
-            computation();
-            if (i < Q)
-                sem_post(&sem_m);
+        if (i < Q - 1)
+            sem_post(&sem_m);
     }
     return nullptr;
 }
+
 void* thread_m(void*) {
     for (int i = 0; i < Q; ++i) {
         sem_wait(&sem_m);
@@ -209,52 +185,96 @@ void* thread_m(void*) {
 
 // ========== ИНИЦИАЛИЗАЦИЯ ==========
 int lab2_init() {
-    pthread_mutex_init(&lock, NULL);
-    sem_init(&sem_i, 0, 1);
-    sem_init(&sem_k, 0, 0);
-    sem_init(&sem_m, 0, 0);
+    if (pthread_mutex_init(&lock, NULL) != 0) {
+        std::cerr << "Mutex init failed" << std::endl;
+        return 1;
+    }
+    if (sem_init(&sem_i, 0, 1) != 0) {
+        std::cerr << "Semaphore i init failed" << std::endl;
+        return 1;
+    }
+    if (sem_init(&sem_k, 0, 0) != 0) {
+        std::cerr << "Semaphore k init failed" << std::endl;
+        return 1;
+    }
+    if (sem_init(&sem_m, 0, 0) != 0) {
+        std::cerr << "Semaphore m init failed" << std::endl;
+        return 1;
+    }
 
     // 1. a
-    //pthread_create(&tid[12], NULL, , NULL);
-    pthread_create(&tid[0], NULL, thread_a, NULL);
-    pthread_create(&tid[2], NULL, thread_c, NULL);
-
+    if (pthread_create(&tid[0], NULL, thread_a, NULL) != 0) {
+        std::cerr << "Thread a creation failed" << std::endl;
+        return 1;
+    }
+    if (pthread_create(&tid[2], NULL, thread_c, NULL) != 0) {
+        std::cerr << "Thread c creation failed" << std::endl;
+        return 1;
+    }
 
     pthread_join(tid[0], NULL);
 
-    // 2. b, c, e, g
-    pthread_create(&tid[1], NULL, thread_b, NULL);
-    pthread_create(&tid[4], NULL, thread_e, NULL);
-    pthread_create(&tid[6], NULL, thread_g, NULL);
+    // 2. b, e, g
+    if (pthread_create(&tid[1], NULL, thread_b, NULL) != 0) {
+        std::cerr << "Thread b creation failed" << std::endl;
+        return 1;
+    }
+    if (pthread_create(&tid[4], NULL, thread_e, NULL) != 0) {
+        std::cerr << "Thread e creation failed" << std::endl;
+        return 1;
+    }
+    if (pthread_create(&tid[6], NULL, thread_g, NULL) != 0) {
+        std::cerr << "Thread g creation failed" << std::endl;
+        return 1;
+    }
 
     pthread_join(tid[1], NULL);
     pthread_join(tid[4], NULL);
-    // 3. d, f (можно сразу, т.к. тесты проверяют группы)
-    pthread_create(&tid[3], NULL, thread_d, NULL);
-    pthread_create(&tid[5], NULL, thread_f, NULL);
+
+    // 3. d, f
+    if (pthread_create(&tid[3], NULL, thread_d, NULL) != 0) {
+        std::cerr << "Thread d creation failed" << std::endl;
+        return 1;
+    }
+    if (pthread_create(&tid[5], NULL, thread_f, NULL) != 0) {
+        std::cerr << "Thread f creation failed" << std::endl;
+        return 1;
+    }
 
     // Ждём всю группу c, d, f, g
     pthread_join(tid[2], NULL);
     pthread_join(tid[3], NULL);
     pthread_join(tid[5], NULL);
+
     // 4. h
-    pthread_create(&tid[7], NULL, thread_h, NULL);
-    pthread_create(&tid[9], NULL, thread_k, NULL);
+    if (pthread_create(&tid[7], NULL, thread_h, NULL) != 0) {
+        std::cerr << "Thread h creation failed" << std::endl;
+        return 1;
+    }
+    if (pthread_create(&tid[9], NULL, thread_k, NULL) != 0) {
+        std::cerr << "Thread k creation failed" << std::endl;
+        return 1;
+    }
     pthread_join(tid[7], NULL);
     pthread_join(tid[6], NULL);
-    //pthread_create(&tid[9], NULL, thread_k, NULL);
-    //pthread_join(tid[9], NULL);
-    // 5. i, k, m
-    pthread_create(&tid[8], NULL, thread_i, NULL);
 
-    pthread_create(&tid[10], NULL, thread_m, NULL);
+    // 5. i, m
+    if (pthread_create(&tid[8], NULL, thread_i, NULL) != 0) {
+        std::cerr << "Thread i creation failed" << std::endl;
+        return 1;
+    }
+    if (pthread_create(&tid[10], NULL, thread_m, NULL) != 0) {
+        std::cerr << "Thread m creation failed" << std::endl;
+        return 1;
+    }
     pthread_join(tid[8], NULL);
     pthread_join(tid[9], NULL);
 
     // 6. n
-    //pthread_create(&tid[10], NULL, thread_m, NULL);
-    pthread_create(&tid[11], NULL, thread_n, NULL);
-    //pthread_join(tid[10], NULL);
+    if (pthread_create(&tid[11], NULL, thread_n, NULL) != 0) {
+        std::cerr << "Thread n creation failed" << std::endl;
+        return 1;
+    }
     pthread_join(tid[10], NULL);
     pthread_join(tid[11], NULL);
 
@@ -263,6 +283,5 @@ int lab2_init() {
     sem_destroy(&sem_k);
     sem_destroy(&sem_m);
 
-    //std::cout << std::endl;
     return 0;
 }
