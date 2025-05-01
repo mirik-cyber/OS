@@ -5,7 +5,7 @@
 #include <cstring>
 
 #define NUM_THREADS 12
-#define Q 5
+#define Q 3
 
 pthread_t tid[NUM_THREADS];
 pthread_mutex_t lock;
@@ -18,11 +18,13 @@ bool flag_h = 0;
 bool flag_b = 0;
 bool flag_e = 0;
 bool flag_g = 0;
-bool flag_2 = 0;
-bool flag_3 = 0;
-bool flag_1 = 0;
 bool flag_a = 0;
 bool flag_m = 0;
+bool flag_c1 = 0;
+bool flag_c2 = 0;
+bool flag_g2 = 0;
+bool flag_g1 = 0;
+bool flag_k1 = 0;
 unsigned int lab2_thread_graph_id() { return 5; }
 const char* lab2_unsynchronized_threads() { return "cdfg"; }
 const char* lab2_sequential_threads() { return "ikm"; }
@@ -52,6 +54,7 @@ void* thread_a(void*) {
 }
 
 void* thread_b(void*) {
+    while(!flag_a || !flag_c1){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'b' << std::flush;
@@ -72,6 +75,7 @@ void* thread_c(void*) {
         sem_post(&sem_a);
     }
     while(!flag_a){};
+    flag_c1 = 1;
     //pthread_join(tid[0], NULL);
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
@@ -79,8 +83,9 @@ void* thread_c(void*) {
         pthread_mutex_unlock(&lock);
         computation();
     }
-    flag_1 = 1;
-    while(!flag_b || !flag_e || !flag_2){};
+
+    while(!flag_b || !flag_e){};
+    flag_c2 = 1;
     //pthread_join(tid[1], NULL);
     //pthread_join(tid[4], NULL);
     for (int i = 0; i < Q; ++i) {
@@ -94,7 +99,7 @@ void* thread_c(void*) {
 }
 
 void* thread_d(void*) {
-    while(!flag_b || !flag_e || !flag_2){};
+    while(!flag_b || !flag_e || !flag_c2 || !flag_g1){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'd' << std::flush;
@@ -106,6 +111,7 @@ void* thread_d(void*) {
 }
 
 void* thread_e(void*) {
+    while(!flag_a || !flag_c1){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'e' << std::flush;
@@ -117,7 +123,7 @@ void* thread_e(void*) {
 }
 
 void* thread_f(void*) {
-    while(!flag_b || !flag_e || !flag_2){};
+    while(!flag_b || !flag_e){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'f' << std::flush;
@@ -129,14 +135,16 @@ void* thread_f(void*) {
 }
 
 void* thread_g(void*) {
+    while(!flag_a){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'g' << std::flush;
         pthread_mutex_unlock(&lock);
         computation();
     }
-    flag_2 = 1;
-    while(!flag_b || !flag_e || !flag_1){};
+    //flag_2 = 1;
+    while(!flag_b || !flag_e || !flag_c1){};
+    flag_g1 = 1;
     //pthread_join(tid[1], NULL);
     //pthread_join(tid[4], NULL);
     for (int i = 0; i < Q; ++i) {
@@ -146,6 +154,7 @@ void* thread_g(void*) {
         computation();
     }
     while(!flag_f || !flag_c || !flag_d){};
+    flag_g2 = 1;
     //pthread_join(tid[3], NULL);
     //pthread_join(tid[5], NULL);
     for (int i = 0; i < Q; ++i) {
@@ -159,7 +168,7 @@ void* thread_g(void*) {
 }
 
 void* thread_h(void*) {
-    while(!flag_f || !flag_c || !flag_d){};
+    while(!flag_f || !flag_c || !flag_d || !flag_g2){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'h' << std::flush;
@@ -192,7 +201,7 @@ void* thread_n(void*) {
 
 // ======= СИНХРОНИЗИРОВАННЫЕ =======
 void* thread_i(void*) {
-    while(!flag_h || !flag_g || !flag_3){};
+    while(!flag_h || !flag_g || !flag_k1){};
     for (int i = 0; i < Q; ++i) {
         sem_wait(&sem_i);
         pthread_mutex_lock(&lock);
@@ -204,6 +213,7 @@ void* thread_i(void*) {
     return nullptr;
 }
 void* thread_k(void*) {
+    while(!flag_f || !flag_c || !flag_d){};
     for (int i = 0; i < Q; ++i) {
         pthread_mutex_lock(&lock);
         std::cout << 'k' << std::flush;
@@ -212,7 +222,7 @@ void* thread_k(void*) {
     }
 
     while(!flag_h || !flag_g) {};
-    flag_3 = 1;
+    flag_k1 = 1;
     //pthread_join(tid[7], NULL);
     //sem_wait(&sem_k);
     for (int i = 0; i < Q; ++i) {
@@ -227,7 +237,7 @@ void* thread_k(void*) {
     return nullptr;
 }
 void* thread_m(void*) {
-    while(!flag_h || !flag_g || !flag_3){};
+    while(!flag_h || !flag_g || !flag_k1){};
     for (int i = 0; i < Q; ++i) {
         sem_wait(&sem_m);
         pthread_mutex_lock(&lock);
