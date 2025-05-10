@@ -2,7 +2,7 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    enp0s3:  # ← имя интерфейса, замени на своё
+    enp0s3:
       dhcp4: no
       addresses:
         - 192.168.1.100/24
